@@ -307,7 +307,9 @@ export function TransferForm() {
                     Available{' '}
                     <span className="ml-1 text-[0.95rem] font-medium text-slate-800/90 tracking-[0.01em] normal-case">
                       {selectedAsset
-                        ? `${formatBalance(selectedAsset.balance)} ${selectedAsset.symbol}`
+                        ? `${formatBalance(selectedAsset.balance)} ${
+                            selectedAsset.symbol
+                          }`
                         : '—'}
                     </span>
                   </p>
@@ -392,7 +394,9 @@ export function TransferForm() {
                     type="text"
                     value={
                       selectedPaymaster && estimatedFee > 0
-                        ? `${formatter.format(estimatedFee)} ${selectedPaymaster.symbol}`
+                        ? `${formatter.format(estimatedFee)} ${
+                            selectedPaymaster.symbol
+                          }`
                         : '—'
                     }
                     readOnly
@@ -487,8 +491,6 @@ export function TransferForm() {
                   type="submit"
                   aria-label={buttonLabel}
                   disabled={buttonDisabled}
-                  status={status}
-                  showStatusIcon
                   className={[
                     'flex h-12 w-full items-center justify-center text-sm',
                     buttonMotionClass,
@@ -531,8 +533,7 @@ export function TransferForm() {
           }
         }
         :global(.summary-card) {
-          background-image:
-            linear-gradient(
+          background-image: linear-gradient(
               135deg,
               rgba(59, 130, 246, 0.18),
               rgba(129, 140, 248, 0.16),
@@ -546,13 +547,11 @@ export function TransferForm() {
           background-size: 240% 240%;
           animation: summary-gradient 22s ease-in-out infinite;
           backdrop-filter: blur(26px);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18),
             0 12px 35px rgba(15, 23, 42, 0.18);
         }
         :global(.summary-card.reveal) {
-          animation:
-            summary-gradient 22s ease-in-out infinite,
+          animation: summary-gradient 22s ease-in-out infinite,
             rowReveal 0.7s ease forwards;
         }
         @keyframes summary-shine {
@@ -697,7 +696,11 @@ function sleep(ms: number) {
 
 function generateMockHash() {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
-    return `0x${crypto.randomUUID().replace(/-/g, '').padEnd(64, '0').slice(0, 64)}`;
+    return `0x${crypto
+      .randomUUID()
+      .replace(/-/g, '')
+      .padEnd(64, '0')
+      .slice(0, 64)}`;
   }
 
   const fallback = Array.from({ length: 64 }, () =>

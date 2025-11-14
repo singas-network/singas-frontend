@@ -31,7 +31,6 @@ export function AuthPanel({ enabled }: AuthPanelProps) {
 
 function PrivyBackedAuthPanel() {
   const { ready, authenticated, login, logout } = usePrivy();
-  const [authStatus, setAuthStatus] = useState<AuthStatus>('idle');
 
   const handleWalletLogin = useCallback(async () => {
     login({
@@ -41,13 +40,7 @@ function PrivyBackedAuthPanel() {
   }, [login]);
 
   const handleLogout = useCallback(async () => {
-    setAuthStatus('logging-out');
-
-    try {
-      await logout();
-    } finally {
-      setAuthStatus('idle');
-    }
+    await logout();
   }, [logout]);
 
   return (
@@ -58,7 +51,6 @@ function PrivyBackedAuthPanel() {
             type="button"
             onClick={handleLogout}
             disabled={!ready}
-            status={authStatus === 'logging-out' ? 'loading' : 'idle'}
             className="w-full">
             Sign out
           </LiquidGlassButton>
@@ -67,7 +59,6 @@ function PrivyBackedAuthPanel() {
             type="button"
             onClick={handleWalletLogin}
             disabled={!ready}
-            status={'idle'}
             className="w-full">
             Sign in with wallet
           </LiquidGlassButton>
